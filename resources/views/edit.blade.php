@@ -1,46 +1,50 @@
 @extends('mahasiswas.layout')
 @section('content')
-<div class="row">
-    <div class="col-lg-12 margin-tb">
-        <div class="pull-left mt-2">
-            <h2>JURUSAN TEKNOLOGI INFORMASI-POLITEKNIK NEGERI MALANG</h2>
-        </div>
-        <div class="float-right my-2">
-            <a class="btn btnsuccess" href="{{ route('mahasiswas.create') }}"> Input Mahasiswa</a>
+<div class="container mt-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="card" style="width: 24rem;">
+            <div class="card-header">
+                Edit Mahasiswa
+            </div>
+            <div class="card-body">
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <strong>Whoops!</strong> There were some problems with your i
+                    nput.<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                <form method="post" action="{{ route('mahasiswas.update', $Mahasiswa-
+>Nim) }}" id="myForm">
+                    @csrf
+                    @method('PUT')<div class="form-group">
+                        <label for="Nim">Nim</label>
+                        <input type="text" name="Nim" class="formcontrol" id="Nim" value="{{ $Mahasiswa->Nim }}" ariadescribedby="Nim">
+                    </div>
+                    <div class="form-group">
+                        <label for="Nama">Nama</label>
+                        <input type="text" name="Nama" class="formcontrol" id="Nama" value="{{ $Mahasiswa->Nama }}" ariadescribedby="Nama">
+                    </div>
+                    <div class="form-group">
+                        <label for="Kelas">Kelas</label>
+                        <input type="Kelas" name="Kelas" class="formcontrol" id="Kelas" value="{{ $Mahasiswa->Kelas }}" ariadescribedby="Kelas">
+                    </div>
+                    <div class="form-group">
+                        <label for="Jurusan">Jurusan</label>
+                        <input type="Jurusan" name="Jurusan" class="formcontrol" id="Jurusan" value="{{ $Mahasiswa->Jurusan }}" ariadescribedby="Jurusan">
+                    </div>
+                    <div class="form-group">
+                        <label for="No_Handphone">No_Handphone</label>
+                        <input type="No_Handphone" name="No_Handphone" class="formcontrol" id="No_Handphone" value="{{ $Mahasiswa->No_Handphone }}" ariadescribedby="No_Handphone">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
-@if ($message = Session::get('success'))
-<div class="alert alert-success">
-    <p>{{ $message }}</p>
-</div>
-@endif
-<table class="table table-bordered">
-    <tr>
-        <th>Nim</th>
-        <th>Nama</th>
-        <th>Kelas</th>
-        <th>Jurusan</th>
-        <th>No_Handphone</th>
-        <th width="280px">Action</th>
-    </tr>
-    @foreach ($mahasiswas as $Mahasiswa)
-    <tr>
-        <td>{{ $Mahasiswa->Nim }}</td>
-        <td>{{ $Mahasiswa->Nama }}</td>
-        <td>{{ $Mahasiswa->Kelas }}</td>
-        <td>{{ $Mahasiswa->Jurusan }}</td>
-        <td>{{ $Mahasiswa->No_Handphone }}</td>
-        <td>
-            <form action="{{ route('mahasiswas.destroy',$Mahasiswa-
->Nim) }}" method="POST">
-                <a class="btn btninfo" href="{{ route('mahasiswas.show',$Mahasiswa->Nim) }}">Show</a>
-                <a class="btn btnprimary" href="{{ route('mahasiswas.edit',$Mahasiswa->Nim) }}">Edit</a>
-                @csrf@method('DELETE')
-                <button type="submit" class="btn btn-danger">Delete</button>
-            </form>
-        </td>
-    </tr>
-    @endforeach
-</table>
 @endsection
